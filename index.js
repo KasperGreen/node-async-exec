@@ -6,8 +6,18 @@
  * Twitter: https://twitter.com/msaaddev
  */
 
-const { exec } = require('child_process');
-const handleError = require('node-cli-handle-error');
+const { exec } = require('child_process')
+const handleError = require('node-cli-handle-error')
+const iconv = require('iconv-lite')
+const jschardet = require('jschardet')
+
+function fixEncoding (str) {
+	const detected = jschardet.detect(str)
+	if(!detected.encoding) {
+		return str
+	}
+	return iconv.decode(str, detected.encoding)
+}
 
 /**
  *
@@ -15,44 +25,51 @@ const handleError = require('node-cli-handle-error');
  * @param {cmd} - commands to run
  * @returns {Promise} - a promise that runs the command
  */
-async function promise(cmd) {
+async function promise (cmd) {
 	return new Promise((resolve, reject) => {
-		exec(cmd, (error, stdout, stderr) => {
+		exec(cmd, { encoding: 'buffer' }, (error, stdout, stderr) => {
 			if (error) {
-				handleError(error);
-				reject({error, stderr});
+				handleError(error)
+				const detected = jschardet.detect(stderr)
+				reject({
+					error,
+					stderr: fixEncoding(stderr)
+				})
 			}
-			resolve({ stdout });
-		});
-	});
+			resolve({ stdout: fixEncoding(stdout) })
+		})
+	})
 }
 
 module.exports = async (opt = {}) => {
 	const defaultOptions = {
 		path: ``,
 		cmd: ``
-	};
+	}
 
-	const options = { ...defaultOptions, ...opt };
+	const options = { ...defaultOptions, ...opt }
 
-	const { path, cmd } = options;
+	const {
+		path,
+		cmd
+	} = options
 
 	// changes directory if a path exists
-	path !== `` ? process.chdir(path) : null;
+	path !== `` ? process.chdir(path) : null
 
 	// checks if there is one command or array of commands
 	if (typeof cmd !== 'object') {
-		return promise(cmd);
+		return promise(cmd)
 	} else {
 		for (let i = 0; i < cmd.length; i++) {
-			await promise(cmd[i]);
+			await promise(cmd[i])
 
-			let j = i + 1;
+			let j = i + 1
 			if (j === cmd.length) {
 				return new Promise((resolve, reject) => {
-					resolve();
-				});
+					resolve()
+				})
 			}
 		}
 	}
-};
+}
