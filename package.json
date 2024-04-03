@@ -1,7 +1,7 @@
 {
 	"private": false,
 	"name": "@kasper-green/node-async-exec",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "",
 	"main": "index.js",
 	"repository": {
