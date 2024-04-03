@@ -3,11 +3,11 @@
 	"version": "1.2.0",
 	"description": "",
 	"main": "index.js",
-	"repository": "https://github.com/msaaddev/node-async-exec",
+	"repository": "https://github.com/KasperGreen/node-async-exec",
 	"author": {
-		"name": "Saad Irfan",
-		"email": "mrsaadirfan@gmail.com",
-		"url": "https://twitter.com/msaaddev"
+		"name": "Kasper Green",
+		"email": "kaspergreen@gmail.com",
+		"url": "https://Kasper.Green"
 	},
 	"license": "MIT",
 	"files": [
