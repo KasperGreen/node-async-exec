@@ -1,9 +1,13 @@
 {
-	"name": "@cusp/node-async-exec",
+	"private": false,
+	"name": "@kasper-green/node-async-exec",
 	"version": "1.2.2",
 	"description": "",
 	"main": "index.js",
-	"repository": "https://github.com/KasperGreen/node-async-exec",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/KasperGreen/node-async-exec.git"
+	},
 	"author": {
 		"name": "Kasper Green",
 		"email": "kaspergreen@gmail.com",
