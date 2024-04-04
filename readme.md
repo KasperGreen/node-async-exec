@@ -21,7 +21,7 @@ A package that runs exec command asynchronously and also changes directory if ne
 
 ```sh
 # install the package
-npm install node-async-exec
+npm install @kasper-green/node-async-exec
 ```
 
 <br>
